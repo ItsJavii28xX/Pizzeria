@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Configuracion">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="1dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/txtViewConfiguracion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/txtViewConfiguracion"
+            android:textAlignment="center"
+            android:textSize="48sp" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="?android:attr/listDivider" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
+        <Switch
+            android:id="@+id/switchFavorita"
+            android:layout_width="290dp"
+            android:layout_height="61dp"
+            android:text="@string/switchFavorita"
+            android:textSize="20sp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
+        <Button
+            android:id="@+id/btnPickColor"
+            style="@android:style/Widget.Holo.Light.Button.Toggle"
+            android:layout_width="290dp"
+            android:layout_height="58dp"
+            android:backgroundTint="#673AB7"
+            android:text="@string/btnPickColor"
+            android:textSize="20sp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
+        <View
+            android:id="@+id/colorPreview"
+            android:layout_width="290dp"
+            android:layout_height="55dp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
+        <Button
+            android:id="@+id/btnGuardarConfiguracion"
+            style="@android:style/Widget.Holo.Light.Button.Toggle"
+            android:layout_width="290dp"
+            android:layout_height="58dp"
+            android:text="@string/btnGuardarConfiguracion"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/button"
+            style="@style/Widget.Material3.ExtendedFloatingActionButton.Primary"
+            android:layout_width="295dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="150dp"
+            android:backgroundTint="@color/design_default_color_error"
+            android:text="@string/btnCerrarSesionConfig"
+            android:textAlignment="center" />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
