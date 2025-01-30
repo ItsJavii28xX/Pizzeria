@@ -20,6 +20,7 @@ import java.util.ArrayList;
 
 import POJOs.TipoTamanoPizzas;
 import POJOs.TipoPizzasPredefinidas;
+import Servicios.ServicioDatos;
 
 public class ListaPizzasPredeterminadas extends AppCompatActivity {
     private ListView listView;
@@ -31,6 +32,11 @@ public class ListaPizzasPredeterminadas extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_lista_pizzas_predeterminadas);
+
+        ServicioDatos.loadData(this, "color");
+        if (ServicioDatos.loadData(this, "color") != null) {
+            getWindow().getDecorView().setBackgroundColor(Integer.parseInt(ServicioDatos.loadData(this, "color")));
+        }
 
         ListView listView = findViewById(R.id.listViewPizzas);
         ListView listViewTamanos = findViewById(R.id.listViewTamanos);
@@ -57,7 +63,6 @@ public class ListaPizzasPredeterminadas extends AppCompatActivity {
         });
 
 
-        //Carga de la listview de pizzas predefinidas
         ArrayList<String> nombresPizzas = new ArrayList<String>();
 
         for (int i = 0; i < TipoPizzasPredefinidas.values().length; i++)
@@ -77,7 +82,6 @@ public class ListaPizzasPredeterminadas extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_single_choice, nombresPizzas.toArray(new String[0]));
         listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
-        //Carga de la listview de tamaños
         ArrayList<String> nombresTamanos = new ArrayList<String>();
 
         for (int i = 0; i < TipoTamanoPizzas.values().length; i++)
@@ -99,4 +103,14 @@ public class ListaPizzasPredeterminadas extends AppCompatActivity {
 
 
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        String color = ServicioDatos.loadData(this, "color");
+        if (color != null) {
+            getWindow().getDecorView().setBackgroundColor(Integer.parseInt(color));
+        }
+    }
+
 }

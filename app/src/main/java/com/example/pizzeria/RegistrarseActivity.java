@@ -17,6 +17,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.util.Objects;
 
 import DAOs.DAOUsuario;
+import Servicios.ServicioDatos;
 
 public class RegistrarseActivity extends AppCompatActivity {
 
@@ -25,6 +26,11 @@ public class RegistrarseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_registrarse);
+
+        ServicioDatos.loadData(this, "color");
+        if (ServicioDatos.loadData(this, "color") != null) {
+            getWindow().getDecorView().setBackgroundColor(Integer.parseInt(ServicioDatos.loadData(this, "color")));
+        }
 
         Button btnRegistrarUsuario = findViewById(R.id.btnRegistrarUsuario);
         TextInputEditText txtInputCorreo = findViewById(R.id.txtInputCorreo);
@@ -71,4 +77,14 @@ public class RegistrarseActivity extends AppCompatActivity {
             return insets;
         });
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        String color = ServicioDatos.loadData(this, "color");
+        if (color != null) {
+            getWindow().getDecorView().setBackgroundColor(Integer.parseInt(color));
+        }
+    }
+
 }

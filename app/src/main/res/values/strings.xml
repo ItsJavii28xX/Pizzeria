@@ -42,4 +42,7 @@
     <string name="btnConfirmarPedido">Confirmar pedido</string>
     <string name="RecordarSwitchMain">Mantener sesión iniciada</string>
     <string name="btnCerrarSesionConfig">Cerrar sesion\n</string>
+    <string name="select_size">Select Size</string>
+    <string name="select_3_ingredients">Select 3 Ingredients</string>
+    <string name="confirm_selection">Confirm Selection</string>
 </resources>

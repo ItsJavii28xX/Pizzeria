@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 
 public class ServicioDatos {
 
-    public void saveData(Context context, String key, String value) {
+    public static void saveData(Context context, String key, String value) {
 
         SharedPreferences sharedPreferences = context.getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -14,14 +14,14 @@ public class ServicioDatos {
 
     }
 
-    public String loadData(Context context, String key) {
+    public static String loadData(Context context, String key) {
 
         SharedPreferences sharedPreferences = context.getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
         return sharedPreferences.getString(key, null);
 
     }
 
-    public void deleteData(Context context, String key) {
+    public static void deleteData(Context context, String key) {
 
         SharedPreferences sharedPreferences = context.getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();

@@ -16,6 +16,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import Servicios.ServicioDatos;
+
 public class MenuPrincipal extends AppCompatActivity {
 
     @Override
@@ -47,6 +49,11 @@ public class MenuPrincipal extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_menu_principal);
 
+        ServicioDatos.loadData(this, "color");
+        if (ServicioDatos.loadData(this, "color") != null) {
+            getWindow().getDecorView().setBackgroundColor(Integer.parseInt(ServicioDatos.loadData(this, "color")));
+        }
+
         Button btnIrWeb = findViewById(R.id.btnIrWeb);
         Button btnIrPedido = findViewById(R.id.btnIrPedido);
         Button btnConfiguracion = findViewById(R.id.btnConfiguracion);
@@ -72,4 +79,14 @@ public class MenuPrincipal extends AppCompatActivity {
             return insets;
         });
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        String color = ServicioDatos.loadData(this, "color");
+        if (color != null) {
+            getWindow().getDecorView().setBackgroundColor(Integer.parseInt(color));
+        }
+    }
+
 }

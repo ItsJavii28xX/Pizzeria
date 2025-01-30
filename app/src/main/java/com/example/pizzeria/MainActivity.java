@@ -24,7 +24,16 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-        ServicioDatos servicioDatos = new ServicioDatos();
+        ServicioDatos.loadData(this, "color");
+        if (ServicioDatos.loadData(this, "color") != null) {
+            getWindow().getDecorView().setBackgroundColor(Integer.parseInt(ServicioDatos.loadData(this, "color")));
+        }
+
+        if (ServicioDatos.loadData(this, "usuario") != null && ServicioDatos.loadData(this, "contrasena") != null) {
+            Intent intent = new Intent(MainActivity.this, MenuPrincipal.class);
+            startActivity(intent);
+        }
+
         Button btnRegistrarse = findViewById(R.id.btnRegistrarse);
         Button btnIniciarSesion = findViewById(R.id.btnIniciarSesion);
         TextView txtInputUsuario = findViewById(R.id.txtInputUsuario);
@@ -52,8 +61,8 @@ public class MainActivity extends AppCompatActivity {
             {
                 if (switchRecordar.isChecked()) {
 
-                    servicioDatos.saveData(this, "usuario", txtInputUsuario.getText().toString());
-                    servicioDatos.saveData(this, "contrasena", txtPasswordContrasena.getText().toString());
+                    ServicioDatos.saveData(this, "usuario", txtInputUsuario.getText().toString());
+                    ServicioDatos.saveData(this, "contrasena", txtPasswordContrasena.getText().toString());
 
                 }
 
@@ -73,4 +82,14 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        String color = ServicioDatos.loadData(this, "color");
+        if (color != null) {
+            getWindow().getDecorView().setBackgroundColor(Integer.parseInt(color));
+        }
+    }
+
 }

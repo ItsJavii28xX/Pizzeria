@@ -10,6 +10,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import Servicios.ServicioDatos;
+
 public class WebViewHTML extends AppCompatActivity {
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -18,6 +20,11 @@ public class WebViewHTML extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_web_view_html);
+
+        ServicioDatos.loadData(this, "color");
+        if (ServicioDatos.loadData(this, "color") != null) {
+            getWindow().getDecorView().setBackgroundColor(Integer.parseInt(ServicioDatos.loadData(this, "color")));
+        }
 
         WebView webView = (WebView)findViewById(R.id.webViewPagina);
         webView.getSettings().setJavaScriptEnabled(true);
@@ -29,4 +36,14 @@ public class WebViewHTML extends AppCompatActivity {
             return insets;
         });
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        String color = ServicioDatos.loadData(this, "color");
+        if (color != null) {
+            getWindow().getDecorView().setBackgroundColor(Integer.parseInt(color));
+        }
+    }
+
 }

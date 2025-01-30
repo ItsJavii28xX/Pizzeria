@@ -1,6 +1,7 @@
 package com.example.pizzeria;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.Switch;
@@ -12,6 +13,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import Servicios.ServicioDatos;
+
 public class MenuPedido extends AppCompatActivity {
 
     @Override
@@ -20,7 +23,12 @@ public class MenuPedido extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_menu_pedido);
 
-        Switch switchFavorita = findViewById(R.id.switchFavorita);
+        ServicioDatos.loadData(this, "color");
+        if (ServicioDatos.loadData(this, "color") != null) {
+            getWindow().getDecorView().setBackgroundColor(Integer.parseInt(ServicioDatos.loadData(this, "color")));
+        }
+
+
         Button btnPizzaFavorita = findViewById(R.id.btnPizzaFavorita);
         Button btnPersonalizada = findViewById(R.id.btnPersonalizada);
         Button btnPredeterminadas = findViewById(R.id.btnPredeterminadas);
@@ -29,15 +37,26 @@ public class MenuPedido extends AppCompatActivity {
 
         btnPizzaFavorita.setOnClickListener(v -> {
 
-            if (switchFavorita.isChecked()) {
-                //todo
+            if (ServicioDatos.loadData(this, "favorita").equalsIgnoreCase("true")) {
+
+                if (ServicioDatos.loadData(this, "favorita").equalsIgnoreCase("true")) {
+                    SharedPreferences prefs = getSharedPreferences("config", MODE_PRIVATE);
+                    String lastPizza = prefs.getString("lastPizza", null);
+                    String lastTamano = prefs.getString("lastTamano", null);
+
+                    if (lastPizza != null && lastTamano != null) {
+
+                        Intent intent = new Intent(MenuPedido.this, ConfirmacionPedido.class);
+                        intent.putExtra("pizza", lastPizza);
+                        intent.putExtra("tamano", lastTamano);
+                        startActivity(intent);
+
+                    }
+
+                }
+
             } else {
                 Toast.makeText(this, "Activa la pizza favorita en la configuracion", Toast.LENGTH_SHORT).show();
-                try {
-                    wait(500);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
                 Intent intent = new Intent(MenuPedido.this, Configuracion.class);
                 startActivity(intent);
             }
@@ -47,6 +66,11 @@ public class MenuPedido extends AppCompatActivity {
 
         btnPredeterminadas.setOnClickListener(v -> {
             Intent intent = new Intent(MenuPedido.this, ListaPizzasPredeterminadas.class);
+            startActivity(intent);
+        });
+
+        btnPersonalizada.setOnClickListener(v -> {
+            Intent intent = new Intent(MenuPedido.this, SeleccionIngredientes.class);
             startActivity(intent);
         });
 
@@ -61,4 +85,14 @@ public class MenuPedido extends AppCompatActivity {
             return insets;
         });
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        String color = ServicioDatos.loadData(this, "color");
+        if (color != null) {
+            getWindow().getDecorView().setBackgroundColor(Integer.parseInt(color));
+        }
+    }
+
 }
